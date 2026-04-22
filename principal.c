@@ -31,11 +31,11 @@ int *pioche(int *tab){
     }
 
 int main(){
+    srand(time(NULL));
     int *pioche_carte = malloc(SIZE*sizeof(int));
     if(pioche == NULL){
         printf("Erreur d'allocation");
     }
-    srand(time(NULL));
     pioche(pioche_carte);
     return 0;
 }
