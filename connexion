@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+typedef{
+    char Nom[100];
+    int Cartes[85];
+    int id;
+    int score;
+}Joueurs;
+
+
+Joueurs *Connexion(){
+    int nbj;
+    printf("Veuillez saisir le nombres de joueurs\n")
+    scanf("%d", &nbj);
+    Joueurs *j = malloc(nbj*sizeof(Joueurs));
+    for(int i=0; i<nbj; i++){
+        printf("Veuillez choisir votre nom:\n")
+        scanf("%s", j.Nom[i]);
+        j.id[i]=i+1;
+        j.score = 0
+    }
+    return j;
+}
