@@ -10,12 +10,7 @@ typedef struct{
     int score;
         }Joueur;
 
-Joueur *connexion(){
-    int nbj;
-    printf("Veuillez saisir le nombre de joueurs\n");
-    do{
-        scanf("%d", &nbj);
-            }while(nbj<2);
+Joueur *connexion(int nbj){
     Joueur *j = malloc(nbj*sizeof(Joueur));
     if(j == NULL){
         printf("Erreur d'allocation 1");
@@ -73,16 +68,69 @@ int tirer_carte(int *tab, int *indice_act){
     return carte; //the card drawn
 }
 
-
-
-void jeu(){
-
+int gains(Joueur j, int carte){
+    if(carte == 13){
+        j.score *= 2;
+    }
+    else if(carte == 14){
+        j.score += 2;
+    }
+    else if(carte == 15){
+        j.score += 4;
+    }
+    else if(carte == 16){
+        j.score += 6;
+    }
+    else if(carte == 17){
+        j.score += 8;
+    }
+    else if(carte == 18){
+        j.score += 10;
+    }
+    else{
+        j.score += carte;
+    }
 }
+
+
+
+void jeu(Joueur *tab, int *indice, int nbj){
+    int partie_gagner = 0, tour=1, choix, i;
+    while(partie_gagner!=1){
+        if(tour == 1){
+
+
+        }
+        else{
+            for(i=0; i<nbj ;i++){
+                printf("Voulez-vous piocher une carte ?\n");
+                printf("NON : 0   OUI : 1\n");
+                scanf("%d", &choix);
+                if(choix == 1){
+                    int carte = tirer_carte(tab, indice);
+                    gains(tab[i], carte);
+                }
+
+        }
+        
+
+
+
+        tour++;
+    }
+    printf("La partie est remporté par : ");
+
+}}
 
 int main(){
     srand(time(NULL));
     Joueur *partie = NULL;
-    partie = connexion();
+    int nbj =0;
+    printf("Veuillez saisir un nombre de joueurs supérieur à 1\n");
+    do{
+        scanf("%d", &nbj);
+            }while(nbj<2);
+    partie = connexion(nbj);
     int *pioche_carte = malloc(SIZE*sizeof(int));
     int *indice_pioche = malloc(sizeof(int));
     if(pioche == NULL){
@@ -91,9 +139,9 @@ int main(){
     if(indice_pioche == NULL){
         printf("Erreur d'allocation 3");
     }
-    pioche(pioche_carte);
-    *indice_pioche = 0;
-    int c = tirer_carte(pioche_carte, indice_pioche);
+    pioche(pioche_carte); //pour avoir la pioche
+    *indice_pioche = 0; //on est au début de la pioche
+    jeu(partie, indice_pioche, nbj);
     free(partie);
     free(pioche_carte);
     free(indice_pioche);
