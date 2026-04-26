@@ -30,10 +30,28 @@ Joueur *connexion(){
 }
 
 int *pioche(int *tab){
-    int i, j, nb1 = 0, nb2 = 0, tmp = 0;
-    for(i=0; i<SIZE; i++){
-        tab[i] = i; //an array with numbers from 0 à 84 in ascending order
+    int i=1, j=1, l=0, nb1 = 0, nb2 = 0, tmp = 0, cmp=1;
+    tab[0] = 0;
+    while(cmp<13){ // normal cards range from 0 to 12
+        if(i>78){
+            break;
+        } //We fill in 79 boxes, the rest are for bonus cards
+        j = cmp;
+        l=0;
+        while(l<j){ //If cmp = 3, then we put 3 cards with the number 3 in our array
+            tab[i] = cmp;
+            i++; //we are making progress in our array
+            l++;
         }
+        cmp++; //cmp is incremented at each iteration
+    }
+    i=79;
+    j=13;
+    while(i<85){
+        tab[i] = j;
+        j++; //the bonus cards have values ​​of 13,14,15,16,17,18
+        i++;
+    }
     for(i=0; i<SIZE; i++){
         do{
             nb1 = rand()%85;
@@ -56,6 +74,10 @@ int tirer_carte(int *tab, int *indice_act){
 }
 
 
+
+void jeu(){
+
+}
 
 int main(){
     srand(time(NULL));
