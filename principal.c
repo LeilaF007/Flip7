@@ -95,7 +95,7 @@ int gains(Joueur j, int carte){
 
 
 void jeu(Joueur *tab, int *indice, int nbj){
-    int partie_gagner = 0, tour=1, choix, i;
+    int partie_gagner = 0, tour=1, choix, i,j;
     for(i=0;i<nbj; i++){
         if(tab[i].score>=200){
             partie_gagner = 1;
@@ -129,6 +129,23 @@ void jeu(Joueur *tab, int *indice, int nbj){
     printf("La partie est remporté par : ");
 
 }}
+
+void fichier_score(Joueur *tab, int *nbj){
+    char nom[SIZE];
+    printf("Veuillez saisir un nom de fichier :\n");
+    scanf("%s", nom);
+    FILE *f = fopen(nom, "w");
+    if(f == NULL){
+        printf("Ouverture impossible\n");
+        exit(4);
+    }
+    for(int i=0; i<(*nbj); i++){
+        fprintf(f, "Nom du joueur : %s  son score final : %d\n", tab[i].nom, tab[i].score);
+    }
+    fclose(f);
+    
+
+}
 
 int main(){
     srand(time(NULL));
