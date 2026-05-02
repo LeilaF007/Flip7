@@ -1,6 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include "pioche.h"
+#define COLOR_RESET  "\033[0m"
+#define COLOR_RED    "\033[1;31m"
+#define COLOR_GREEN  "\033[1;32m"
+#define COLOR_YELLOW "\033[1;33m"
+#define COLOR_BLUE   "\033[1;34m"
+#define COLOR_CYAN   "\033[1;36m"
 #define SIZE 85
 
 typedef struct{
@@ -24,49 +31,6 @@ Joueur *connexion(int nbj){
     return j;
 }
 
-int *pioche(int *tab){
-    int i=1, j=1, l=0, nb1 = 0, nb2 = 0, tmp = 0, cmp=1;
-    tab[0] = 0;
-    while(cmp<13){ // normal cards range from 0 to 12
-        if(i>78){
-            break;
-        } //We fill in 79 boxes, the rest are for bonus cards
-        j = cmp;
-        l=0;
-        while(l<j){ //If cmp = 3, then we put 3 cards with the number 3 in our array
-            tab[i] = cmp;
-            i++; //we are making progress in our array
-            l++;
-        }
-        cmp++; //cmp is incremented at each iteration
-    }
-    i=79;
-    j=13;
-    while(i<85){
-        tab[i] = j;
-        j++; //the bonus cards have values ​​of 13,14,15,16,17,18
-        i++;
-    }
-    for(i=0; i<SIZE; i++){
-        do{
-            nb1 = rand()%85;
-            nb2 = rand()%85;
-        }while(nb1==nb2);
-        tmp = tab[nb1];
-        tab[nb1] = tab[nb2];
-        tab[nb2] = tmp; //we change the positions of the numbers stored in the array
-    }
-    for(i=0; i<SIZE; i++){
-        printf("%d\n", tab[i]);
-    }
-    return tab;        
-    }
-
-int tirer_carte(int *tab, int *indice_act){
-    int carte = tab[*indice_act];
-    (*indice_act)++; //When you draw a card, you advance in the tableau
-    return carte; //the card drawn
-}
 
 int gains(Joueur j, int carte){
     if(carte == 13){
@@ -93,42 +57,15 @@ int gains(Joueur j, int carte){
 }
 
 
-
-void jeu(Joueur *tab, int *indice, int nbj){
-    int partie_gagner = 0, tour=1, choix, i,j;
-    for(i=0;i<nbj; i++){
-        if(tab[i].score>=200){
-            partie_gagner = 1;
-        }
-    }
-    if(indice>85){
-        partie_gagner = 1;
-    }
-    while(partie_gagner!=1){
-        if(tour == 1){
-
-
-        }
-        else{
-            for(i=0; i<nbj ;i++){
-                printf("Voulez-vous piocher une carte ?\n");
-                printf("NON : 0   OUI : 1\n");
-                scanf("%d", &choix);
-                if(choix == 1){
-                    int carte = tirer_carte(tab, indice);
-                    gains(tab[i], carte);
-                }
-
-        }
-        
-
-
-
-        tour++;
-    }
-    printf("La partie est remporté par : ");
-
-}}
+void afficher_nom_carte(int carte) {
+    if (carte == 13) printf("%sx2%s", COLOR_YELLOW, COLOR_RESET);
+    else if (carte == 14) printf("%s+2%s", COLOR_YELLOW, COLOR_RESET);
+    else if (carte == 15) printf("%s+4%s", COLOR_YELLOW, COLOR_RESET);
+    else if (carte == 16) printf("%s+6%s", COLOR_YELLOW, COLOR_RESET);
+    else if (carte == 17) printf("%s+8%s", COLOR_YELLOW, COLOR_RESET);
+    else if (carte == 18) printf("%s+10%s", COLOR_YELLOW, COLOR_RESET);
+    else printf("%s%d%s", COLOR_BLUE, carte, COLOR_RESET); 
+}
 
 void fichier_score(Joueur *tab, int *nbj){
     char nom[SIZE];
@@ -156,19 +93,12 @@ int main(){
         scanf("%d", &nbj);
             }while(nbj<2);
     partie = connexion(nbj);
-    int *pioche_carte = malloc(SIZE*sizeof(int));
-    int *indice_pioche = malloc(sizeof(int));
-    if(pioche == NULL){
+    Pioche *pioche_carte = malloc(SIZE*sizeof(int));
+    if(pioche_carte == NULL){
         printf("Erreur d'allocation 2");
     }
-    if(indice_pioche == NULL){
-        printf("Erreur d'allocation 3");
-    }
-    pioche(pioche_carte); //pour avoir la pioche
-    *indice_pioche = 0; //on est au début de la pioche
-    jeu(partie, indice_pioche, nbj);
+    initialiser_pioche(pioche_carte); //pour avoir la pioche
     free(partie);
     free(pioche_carte);
-    free(indice_pioche);
     return 0;
 }
