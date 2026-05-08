@@ -4,7 +4,7 @@
 void appliquer_carte(Joueur *j, int carte) {
     j->cartesMain[carte]++;
 
-    // Cartes bonus (13=x2 / 14=+2 / 15=+4 / 16=+6 / 17=+8 / 18=+10)
+    // Cartes bonus (13=x2, 14=+2, 15=+4, 16=+6, 17=+8, 18=+10)
     if (carte == 13) {
         j->scoreManche *= 2;
     }
@@ -55,7 +55,7 @@ void jouer_tour(Joueur *j, Pioche *p) {
     printf("\n--- Tour de %s (Score total : %d) ---\n", j->nom, j->scoreTotal);
 
     while (continuer && !j->aPerduManche && !j->aFiniManche) {
-        effacer_terminal();
+        //effacer_terminal();
         afficher_plateau(j, p);
 
         printf("[1] Piocher | [0] S'arreter : ");
@@ -75,7 +75,7 @@ void jouer_tour(Joueur *j, Pioche *p) {
             appliquer_carte(j, carte);
 
             if (verifier_doublon(j, carte)) {
-                printf("DOUBLON ! Vous perdez vos points de cette manche.\n");
+                printf("DOUBLON ! Vous perdez vos points de cette manche\n");
                 j->scoreManche = 0;
                 j->aPerduManche = 1;
                 attendre_entree();

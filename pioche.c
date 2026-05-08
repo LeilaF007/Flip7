@@ -37,9 +37,6 @@ void melange_pioche(Pioche *tab){
         tab->cartes[nb1] = tab->cartes[nb2];
         tab->cartes[nb2] = tmp; //we change the positions of the numbers stored in the array
         }
-    for(i=0; i<TAILLE_PIOCHE; i++){
-        printf("%d\n", tab->cartes[i]);
-    }
 }
 
 int tirer_carte(Pioche *tab){
