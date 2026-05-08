@@ -30,15 +30,15 @@ void melange_pioche(Pioche *tab){
     int i, nb1=0, nb2=0, tmp=0;
     for(i=0; i<TAILLE_PIOCHE; i++){
         do{
-            nb1 = rand()%85;
-            nb2 = rand()%85;
+            nb1 = rand()%TAILLE_PIOCHE;
+            nb2 = rand()%TAILLE_PIOCHE;
             }while(nb1==nb2);
         tmp = tab->cartes[nb1];
         tab->cartes[nb1] = tab->cartes[nb2];
         tab->cartes[nb2] = tmp; //we change the positions of the numbers stored in the array
         }
     for(i=0; i<TAILLE_PIOCHE; i++){
-        printf("%d\n", tab[i]);
+        printf("%d\n", tab->cartes[i]);
     }
 }
 
