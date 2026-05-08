@@ -3,59 +3,70 @@
 #include "affichage.h"
 
 void afficher_nom_carte(int carte){
-    if(carte == 13){
-        printf("%sx2%s", COLOR_YELLOW, COLOR_RESET);}
-    else if(carte == 14){
-        printf("%s+2%s", COLOR_YELLOW, COLOR_RESET);}
-    else if(carte == 15){
-        printf("%s+4%s", COLOR_YELLOW, COLOR_RESET);}
-    else if(carte == 16){
-        printf("%s+6%s", COLOR_YELLOW, COLOR_RESET);}
-    else if(carte == 17){
-        printf("%s+8%s", COLOR_YELLOW, COLOR_RESET);}
-    else if(carte == 18){
-        printf("%s+10%s", COLOR_YELLOW, COLOR_RESET);}
+    if(carte >= 13){
+        printf(YELLOW);
+    }
     else{
-        printf("%s%d%s", COLOR_BLUE, carte, COLOR_RESET);}
+        printf(BLUE);
+    }
+    printf("--------\n");
+
+    if(carte == 13){
+        printf("|  x2  |\n");}
+    else if(carte == 14){
+        printf("|  +2  |\n");}
+    else if(carte == 15){
+        printf("|  +4  |\n");}
+    else if(carte == 16){
+        printf("|  +6  |\n");}
+    else if(carte == 17){
+        printf("|  +8  |\n");}
+    else if(carte == 18){
+        printf("| +10  |\n");}
+    else{
+        if(carte>9){ //pour que les bords de la carte soit bien alignés
+            printf("|  %d  |\n", carte);
+        }
+        else{
+            printf("|   %d  |\n", carte);
+        }
+    }
+    printf("--------\n");
+    printf(COLOR_RESET);
 }
 
 void afficher_plateau(Joueur *j, Pioche *p){
     int vide = 1;
     printf("\n");
-    printf("%s--------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s--------------------------------------------------------%s\n", CYAN, COLOR_RESET);
     printf("  JOUEUR : %s%s%s | SCORE TOTAL : %s%d%s | SCORE MANCHE : %s%d%s\n", 
-    COLOR_YELLOW, j->nom, COLOR_RESET, COLOR_GREEN, j->scoreTotal, COLOR_RESET, COLOR_RED, j->scoreManche, COLOR_RESET);
+    YELLOW, j->nom, COLOR_RESET, GREEN, j->scoreTotal, COLOR_RESET, RED, j->scoreManche, COLOR_RESET);
     printf("  VOTRE MAIN : ");
+    printf("\n");
     for(int i=0;i <= 18; i++){
-        if(j->cartesMain[i] > 0){
-            printf("[");
+        if(j->cartesMain[i]>0){
             afficher_nom_carte(i);
-            printf("] ");
             vide = 0;
         }
     }
     if(vide==1){
-        printf("(vide)");
+        printf("  (vide)");
     }
     printf("\n");
     printf("  PIOCHE : [");
-    int progression = (p->prochain_indice * 20)/TAILLE_PIOCHE;
-    for(int i=0; i<20; i++){
+    int progression = (p->prochain_indice * 40)/TAILLE_PIOCHE;
+    for(int i=0; i<40; i++){
         if(i<progression){
-            printf("#");}
+            printf("X");}
         else{
             printf(".");}
     }
     printf("] (%d/%d cartes tirées)\n", p->prochain_indice, TAILLE_PIOCHE);
-    printf("%s--------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s--------------------------------------------------------%s\n", CYAN, COLOR_RESET);
 }
-
-//void effacer_terminal() {
-  //  printf("\033[H\033[J");
-//}
 
 void attendre_entree(){
     printf("\n");
-    printf("%sAppuyez sur ENTREE pour continuer%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%sAppuyez sur ENTREE pour continuer%s\n", CYAN, COLOR_RESET);
     while(getchar() != '\n'){}
 }

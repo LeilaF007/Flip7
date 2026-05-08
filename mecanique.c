@@ -54,8 +54,7 @@ void jouer_tour(Joueur *j, Pioche *p) {
 
     printf("\n--- Tour de %s (Score total : %d) ---\n", j->nom, j->scoreTotal);
 
-    while (continuer && !j->aPerduManche && !j->aFiniManche) {
-        //effacer_terminal();
+    while(continuer && !j->aPerduManche && !j->aFiniManche){
         afficher_plateau(j, p);
 
         printf("[1] Piocher | [0] S'arreter : ");
@@ -69,9 +68,9 @@ void jouer_tour(Joueur *j, Pioche *p) {
                 break;
             }
 
-            printf("\n>>> Vous avez tire la carte : ");
+            printf("\n>>> Vous avez tire la carte : \n");
             afficher_nom_carte(carte);
-            printf("\n");
+            //printf("\n");
             appliquer_carte(j, carte);
 
             if (verifier_doublon(j, carte)) {
