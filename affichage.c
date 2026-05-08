@@ -10,7 +10,6 @@ void afficher_nom_carte(int carte){
         printf(BLUE);
     }
     printf("--------\n");
-
     if(carte == 13){
         printf("|  x2  |\n");}
     else if(carte == 14){
@@ -41,8 +40,7 @@ void afficher_plateau(Joueur *j, Pioche *p){
     printf("%s--------------------------------------------------------%s\n", CYAN, COLOR_RESET);
     printf("  JOUEUR : %s%s%s | SCORE TOTAL : %s%d%s | SCORE MANCHE : %s%d%s\n", 
     YELLOW, j->nom, COLOR_RESET, GREEN, j->scoreTotal, COLOR_RESET, RED, j->scoreManche, COLOR_RESET);
-    printf("  VOTRE MAIN : ");
-    printf("\n");
+    printf("  VOTRE MAIN : \n");
     for(int i=0;i <= 18; i++){
         if(j->cartesMain[i]>0){
             afficher_nom_carte(i);
