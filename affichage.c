@@ -54,7 +54,7 @@ void afficher_plateau(Joueur *j, Pioche *p){
     }
     printf("\n");
     printf("  PIOCHE : [");
-    int progression = (p->prochain_indice * 40)/TAILLE_PIOCHE;
+    int progression = (p->prochain_indice * 40)/TAILLE_PIOCHE; //echelle pour la pioche
     for(int i=0; i<40; i++){
         if(i<progression){
             printf("X");}

@@ -27,23 +27,25 @@ int main(){
 
             if(tabJoueurs[i].scoreTotal >= 200){
                 printf("\n");
-                printf("!!! %s A ATTEINT 200 POINTS ET REMPORTE LA VICTOIRE !!!\n", tabJoueurs[i].nom);
+                printf("!!! %s A ATTEINT 200 POINTS ET GAGNE LA PARTIE !!!\n", tabJoueurs[i].nom);
                 partieEnCours = 0;
                 break;
             }
             if(deck.prochain_indice >= TAILLE_PIOCHE){
                 printf("\n");
-                printf("--- LA PIOCHE EST EPUISEE. FIN DE LA PARTIE. ---\n");
+                printf("--- PLUS DE CARTES DANS LA PIOCHE ---\n");
+                printf("---       FIN DE LA PARTIE        ---\n");
                 partieEnCours = 0;
                 break;
             }
         }
     }
-    printf("\n--- CLASSEMENT FINAL ---\n");
+    printf("\n");
+    printf("---       CLASSEMENT FINAL        ---\n");
     for(int i = 0; i<nbj; i++){
         printf("%d. %s : %d points\n", i + 1, tabJoueurs[i].nom, tabJoueurs[i].scoreTotal);
     }
-    printf("Voulez créez un fichier avec le score et le pseudo de chaque joueurs ?\n");
+    printf("Voulez-vous créez un fichier avec le score et le pseudo de chaque joueurs ?\n");
     printf("Oui : 1 Non : 0\n");
     do{
         scanf("%d", &val);
