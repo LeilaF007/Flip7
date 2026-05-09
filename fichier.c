@@ -9,7 +9,7 @@ int taille_chaine(char tab[]){
     return taille;
 }
 
-void fichier_score(Joueur **j, int nbj){
+void fichier_score(Joueur *j, int nbj){
     FILE* fichier = NULL;
     char nom[MAX_NOM];
     int size=0;
@@ -24,7 +24,7 @@ void fichier_score(Joueur **j, int nbj){
 		exit(1);
 	}
     for(int i =0; i<nbj; i++){
-        fprintf(fichier, "%s %d\n", (*j +i)->nom, (*j+i)->scoreTotal);
+        fprintf(fichier, "%s %d\n", j[i].nom, j[i].scoreTotal);
     }
     fclose(fichier);
 }

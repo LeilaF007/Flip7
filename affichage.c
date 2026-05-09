@@ -4,14 +4,14 @@
 
 void afficher_nom_carte(int carte){
     if(carte >= 13){
-        printf(YELLOW);
+        printf(YELLOW); //pour les cartes bonus
     }
     else{
-        printf(BLUE);
+        printf(BLUE); //bleu pour les cartes classiques
     }
     printf("--------\n");
     if(carte == 13){
-        printf("|  x2  |\n");}
+        printf("|  x2  |\n");} //affichage pour les cartes bonus
     else if(carte == 14){
         printf("|  +2  |\n");}
     else if(carte == 15){
@@ -22,8 +22,8 @@ void afficher_nom_carte(int carte){
         printf("|  +8  |\n");}
     else if(carte == 18){
         printf("| +10  |\n");}
-    else{
-        if(carte>9){ //pour que les bords de la carte soit bien alignés
+    else{ //affichage pour les cartes classiques
+        if(carte>9){ //pour que les bords de la carte soit bien alignés quand on a des dizaines
             printf("|  %d  |\n", carte);
         }
         else{
@@ -31,7 +31,7 @@ void afficher_nom_carte(int carte){
         }
     }
     printf("--------\n");
-    printf(COLOR_RESET);
+    printf(COLOR_RESET); //pour enlever la couleur après
 }
 
 void afficher_plateau(Joueur *j, Pioche *p){
@@ -66,5 +66,5 @@ void afficher_plateau(Joueur *j, Pioche *p){
 void attendre_entree(){
     printf("\n");
     printf("%sAppuyez sur ENTREE pour continuer%s\n", CYAN, COLOR_RESET);
-    while(getchar() != '\n'){}
+    while(getchar() != '\n'){};
 }

@@ -57,8 +57,9 @@ void jouer_tour(Joueur *j, Pioche *p) {
     while(continuer && !j->aPerduManche && !j->aFiniManche){
         afficher_plateau(j, p);
 
-        printf("[1] Piocher | [0] S'arreter : ");
+        printf("(1) Piocher | (0) S'arreter : ");
         scanf("%d", &choix);
+        while(getchar() != '\n'); //vide le buffer
 
         if (choix == 1) {
             int carte = tirer_carte(p);
