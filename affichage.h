@@ -11,7 +11,7 @@
 #define BLUE   "\033[1;34m"
 #define CYAN   "\033[1;36m"
 
-void afficher_nom_carte(int carte); //Translates the card's numeric code into text (example : 16 -> "+6")
+void generer_lignes_carte(int carte, char lignes[5][20]); //Translates the card's numeric code into text (example : 16 -> "+6")
 
 void afficher_plateau(Joueur *j, Pioche *p); //Displays the current state of the player and the pickaxe
 
