@@ -2,6 +2,11 @@
 
 void initialiser_pioche(Pioche *tab){
     int i=1, j=1, l=0, cmp=1;
+    tab->cartes = malloc(85*sizeof(int));
+    if(tab->cartes == NULL){
+    	printf("Erreur d'allocation dynamique\n");
+        exit(3);
+    }
     tab->cartes[0] = 0;
     while(cmp<13){ // normal cards range from 0 to 12
         if(i>78){ //We fill in 79 boxes, the rest are for bonus cards
@@ -24,14 +29,54 @@ void initialiser_pioche(Pioche *tab){
         i++;
     }
     tab->prochain_indice = 0;
+    tab->taille =85;
     }
+
+void piocheSpecial(Pioche *tab){
+	int indice =0, nbrCarte, i;
+    tab->cartes = NULL;
+    tab->taille=0;
+	for(i =0; i<=12; i++){
+    		do{
+                printf("Combien de %d voulez vous\n", i);
+    		    scanf("%d", &nbrCarte);}while(nbrCarte<=0);
+    		tab->taille+=nbrCarte;
+            int *tmp = realloc(tab->cartes, tab->taille*sizeof(int));
+    		if(tmp == NULL){
+                printf("Erreur d'allocation\n");
+                free(tab->cartes);
+                exit(1);
+            }
+            tab->cartes = tmp;
+            for(int j=0; j<nbrCarte; j++){
+    			tab->cartes[indice] = i;
+    			indice++;
+    		}}
+    for(i = 13;i <= 18; i++){
+        tab->taille++;
+        int *tmp = realloc(
+            tab->cartes,
+            tab->taille * sizeof(int)
+        );
+        if(tmp == NULL){
+            printf("Erreur d'allocation\n");
+            free(tab->cartes);
+            exit(2);
+        }
+        tab->cartes = tmp;
+        tab->cartes[indice] = i;
+        indice++;
+    }
+    tab->prochain_indice = 0;
+}
+
 
 void melange_pioche(Pioche *tab){
     int i, nb1=0, nb2=0, tmp=0;
-    for(i=0; i<TAILLE_PIOCHE; i++){
+    for(i=0; i<(tab->taille); i++){
         do{
-            nb1 = rand()%TAILLE_PIOCHE;
-            nb2 = rand()%TAILLE_PIOCHE;
+            nb1 = rand()%(tab->taille);
+            nb2 = rand()%(tab->taille);
             }while(nb1==nb2);
         tmp = tab->cartes[nb1];
         tab->cartes[nb1] = tab->cartes[nb2];
@@ -40,7 +85,7 @@ void melange_pioche(Pioche *tab){
 }
 
 int tirer_carte(Pioche *tab){
-    if(tab->prochain_indice >= TAILLE_PIOCHE){
+    if(tab->prochain_indice >= (tab->taille)){
         return -1;
     }
     else{
