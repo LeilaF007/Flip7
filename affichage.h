@@ -1,5 +1,6 @@
 #ifndef AFFICHAGE_H
 #define AFFICHAGE_H
+#define CARTES_MAX 19
 
 #include "joueur.h"
 #include "pioche.h"

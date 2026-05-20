@@ -11,8 +11,8 @@ typedef struct {
     int scoreTotal;          //Score 
     int scoreManche;         //Points accumulated in a round
     int cartesMain[19];      //Hand
-    int aPerduManche;        //1 if the player draw a double
-    int aFiniManche;         //1 if the player stops
+    int perduManche;        //1 if the player draw a double
+    int finiManche;         //1 if the player stops
 } Joueur;
 
 

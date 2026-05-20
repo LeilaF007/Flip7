@@ -3,9 +3,9 @@
 
 void init_joueur_manche(Joueur *j){
     j->scoreManche = 0;
-    j->aPerduManche = 0;
-    j->aFiniManche = 0;
-    for(int i=0; i < 19; i++){
+    j->perduManche = 0;
+    j->finiManche = 0;
+    for(int i=0; i<19; i++){ //il y a 19 cartes différentes dans le jeu
         j->cartesMain[i] = 0;
     }
 }

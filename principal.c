@@ -8,98 +8,49 @@
 #include "fichier.h"
 
 int main(){
-
     srand(time(NULL));
-
-    int nbj = 0;
-
+    int nbj = 0, i=0;
     int partieEnCours = 1;
-
     int val = 0;
-
-    int choixPioche = 0;
-
-    Joueur *tabJoueurs = connexion(&nbj);
-
-    Pioche deck;
-
-    /* ---------- CHOIX DE LA PIOCHE ---------- */
-
+    int choixPioche = 0; //si on veut une pioche classique ou personnalisée
+    Joueur *tabJoueurs = connexion(&nbj); // on enregistre tous les joueurs
+    Pioche deck; //tableau de la pioche
     printf("\n");
     printf("---------- CHOIX DE LA PIOCHE ----------\n");
     printf("[1] Pioche classique\n");
     printf("[2] Pioche personnalisee\n");
-    printf("Votre choix : ");
-
     do{
-
+        printf("Votre choix : ");
         scanf("%d", &choixPioche);
-
-    }while(choixPioche != 1 &&
-           choixPioche != 2);
-
-    /* ---------- INITIALISATION ---------- */
-
+    }while((choixPioche != 1) &&(choixPioche != 2));
     if(choixPioche == 1){
-
-        initialiser_pioche(&deck);
-
+        initialiser_pioche(&deck); //pioche classique
     }
     else{
-
-        piocheSpecial(&deck);
+        piocheSpecial(&deck); //pioche speciale
     }
-
-    melange_pioche(&deck);
-
-    /* ---------- BOUCLE PRINCIPALE ---------- */
-
-    while(partieEnCours == 1){
-
+    melange_pioche(&deck); //on melange la pioche
+    while(partieEnCours == 1){ //tant que la partie doit continuer -> boucle principale
         printf("\n");
         printf("---------- NOUVELLE MANCHE ----------\n");
-
-        for(int i = 0; i < nbj; i++){
-
-            init_joueur_manche(&tabJoueurs[i]);
-
+        for(i = 0; i<nbj; i++){
+            init_joueur_manche(&tabJoueurs[i]); //on inititialise tous les joueurs (score, main et partie à 0)
             jouer_tour(&tabJoueurs[i], &deck);
-
-            tabJoueurs[i].scoreTotal +=
-            tabJoueurs[i].scoreManche;
-
+            tabJoueurs[i].scoreTotal += tabJoueurs[i].scoreManche; //on incrémente le score total
             printf("\n");
-
-            printf("Fin du tour, score total de %s : %d\n",
-            tabJoueurs[i].nom,
-            tabJoueurs[i].scoreTotal);
-
-            /* ---------- VICTOIRE ---------- */
-
-            if(tabJoueurs[i].scoreTotal >= 200){
-
+            printf("Fin du tour, score total de %s : %d\n", tabJoueurs[i].nom, tabJoueurs[i].scoreTotal);
+            if(tabJoueurs[i].scoreTotal >= 200){ //si le joueur a plus de 200 points
                 printf("\n");
-
-                printf("!!! %s A ATTEINT 200 POINTS ET GAGNE LA PARTIE !!!\n",
-                tabJoueurs[i].nom);
-
-                partieEnCours = 0;
-
-                break;
+                printf("!!! %s A ATTEINT 200 POINTS ET GAGNE LA PARTIE !!!\n",tabJoueurs[i].nom);
+                partieEnCours = 0; //on finit la partie
+                break; //on sort de la partie
             }
 
             /* ---------- FIN DE PIOCHE ---------- */
 
             if(deck.prochain_indice >= deck.taille){
-
-                printf("\n");
-
-                printf("--- PLUS DE CARTES DANS LA PIOCHE ---\n");
-
-                printf("---       FIN DE LA PARTIE        ---\n");
-
+                printf("---       FIN DE LA PARTIE         ---\n");
                 partieEnCours = 0;
-
                 break;
             }
         }
