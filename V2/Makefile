@@ -1,13 +1,25 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -Iinclude
 
+ifeq ($(OS),Windows_NT)
+    MKDIR = if not exist obj mkdir obj
+    RMDIR = rmdir /s /q obj
+    RM = del /q
+    EXEC = jeu.exe
+else
+    MKDIR = mkdir -p obj
+    RMDIR = rm -rf obj
+    RM = rm -f
+    EXEC = jeu
+endif
+
 OBJ = obj/main.o obj/pioche.o obj/mecanique.o obj/affichage.o obj/joueur.o obj/fichier.o
 
-jeu: $(OBJ)
-	$(CC) $(OBJ) -o jeu
+$(EXEC): $(OBJ)
+	$(CC) $(OBJ) -o $(EXEC)
 
 obj/%.o: src/%.c
-	mkdir -p obj
+	@$(MKDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 obj/main.o: src/main.c include/pioche.h include/mecanique.h include/affichage.h include/joueur.h include/fichier.h
@@ -18,4 +30,5 @@ obj/joueur.o: src/joueur.c include/joueur.h
 obj/fichier.o: src/fichier.c include/fichier.h include/joueur.h
 
 clean:
-	rm -rf obj jeu
+	-@$(RMDIR)
+	-@$(RM) $(EXEC)
