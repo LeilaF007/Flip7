@@ -4,16 +4,16 @@
 #include "joueur.h"
 #include "pioche.h"
 
-//Calcule les points selon la carte tirée, gère les bonus (x2, +2, +4, +6, +8, +10)
+//Calculates points based on the card drawn, manages bonuses (x2, +2, +4, +6, +8, +10)
 void appliquer_carte(Joueur *j, int carte);
 
-//Vérifie si le joueur a pioché un doublon, return 1 si doublon (perdu), 0 sinon
+//Checks if the player drew a duplicate, returns 1 if duplicate (lost), 0 otherwise
 int verifier_doublon(Joueur *j, int carte);
 
-//Compte le nombre de cartes différentes possédées durant la manche
+//Count the number of different cards held during the round
 int compter_differentes(Joueur *j);
 
-//Gère le tour complet d'un joueur
+//Manages a player's complete turn
 void jouer_tour(Joueur *j, Pioche *p);
 
 #endif
