@@ -15,7 +15,7 @@
 ### 1. Naviguer vers le projet
 Ouvrez votre terminal et déplacez-vous dans le dossier du projet :
 ```bash
-cd chemin/vers/notre/FlipTech
+cd chemin/FlipTech
 ```
 
 ### 2. Compiler le projet
