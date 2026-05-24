@@ -50,7 +50,7 @@ Pour supprimer proprement les fichiers objets `.o` générés ainsi que l'exécu
 
 ## Commandes et Interface du Jeu
 
-Pendant son tour de jeu, le joueur fait face à un choix binaire :
+Pendant son tour de jeu, le joueur fait face à un choix :
 * **`1`** -> Piocher une carte.
 * **`0`** -> Arrêter la manche.
 
@@ -64,7 +64,7 @@ Pendant son tour de jeu, le joueur fait face à un choix binaire :
 
 ## Les Règles de Jeu
 
-* **Cartes Normales (0 à 12) :** Ajoutent directement leur valeur nominale au score de la manche en cours.
+* **Cartes Normales (0 à 12) :** Ajoutent directement leur valeur au score de la manche en cours.
 * **Cartes Bonus (13 à 18) :**
   * **13** ➔ Multiplicateur `x2` sur le score de la manche.
   * **14** ➔ Bonus de `+2` points.
