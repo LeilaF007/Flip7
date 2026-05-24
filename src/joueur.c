@@ -21,7 +21,8 @@ Joueur* connexion(int *nbj){
         printf("Combien de joueurs participent ? (Minimum 2) : ");
         if(scanf("%d", &n) != 1){ //If the scanf function does not return 1, then there is an error in the field entered by the user
             printf("Erreur : veuillez saisir un nombre entier\n");
-            while(getchar() != '\n'){}; //The buffer contains something other than an integer, so the while loop allows us to remove what it contains because it's false
+            while(getchar() != '\n'); //The buffer contains something other than an integer, so the while loop allows us to remove what it contains because it's false
+        }
     }while(n<2);
 
     //the number of players
