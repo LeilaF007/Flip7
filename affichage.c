@@ -4,30 +4,21 @@
 
 void generer_lignes_carte(int carte, char lignes[5][20]){
     const char *couleur;
-<<<<<<< HEAD
-    if(carte >= 13){
-        couleur = YELLOW; //for bonus card
-    } 
-    else{
-        couleur = BLUE; //for normal card
-    }
-    sprintf(lignes[0], "%s--------%s", couleur, COLOR_RESET); //first line, color reset for stopped the color
-=======
 
     if (carte >= 13) {
-        couleur = YELLOW;
+        couleur = YELLOW; //bonus cards
     } 
     else {
-        couleur = BLUE;
+        couleur = BLUE; //normal cards
     }
 
-
+    //top of the cards
     sprintf(lignes[0], "%s--------%s", couleur, COLOR_RESET);
 
->>>>>>> 66868323fe23527346b415ff410dd1bfe12b10d9
+    //content of the card, according to teh card
     switch(carte){ 
         case 13:
-            sprintf(lignes[1], "%s|  x2  |%s", couleur, COLOR_RESET); //second line with the number
+            sprintf(lignes[1], "%s|  x2  |%s", couleur, COLOR_RESET);
             break;
         case 14:
             sprintf(lignes[1], "%s|  +2  |%s", couleur, COLOR_RESET);
@@ -46,18 +37,21 @@ void generer_lignes_carte(int carte, char lignes[5][20]){
             break;
     
         default:
+            //different alignments according to if the content is at 1 or 2 numbers
             if(carte > 9){
-                sprintf(lignes[1], "%s|  %d  |%s",couleur, carte, COLOR_RESET); //for normal card
+                sprintf(lignes[1], "%s|  %d  |%s",couleur, carte, COLOR_RESET);
             }
             else{ 
                 sprintf(lignes[1], "%s|   %d  |%s",couleur, carte, COLOR_RESET);
             }
     }
 
+    //bottom of the card
     sprintf(lignes[2], "%s--------%s", couleur, COLOR_RESET);
     
-    // lignes 3 et 4 vides pour compatibilité
-    sprintf(lignes[3], " "); //space
+    
+    // lines 3 and 4 empty for comptability with the horizontal display
+    sprintf(lignes[3], " ");
     sprintf(lignes[4], " ");
 }
 
@@ -65,22 +59,21 @@ void generer_lignes_carte(int carte, char lignes[5][20]){
 
 void afficher_plateau(Joueur *j, Pioche *p){
     printf("\n");
+
+    //top of the playing board
     printf("%s╭──────────────────────────────── PLATEAU ─────────────────────────────────╮%s\n", CYAN, COLOR_RESET);
+
+    //player's info
     printf("  JOUEUR : %s%s%s | SCORE TOTAL : %s%d%s | SCORE MANCHE : %s%d%s\n", 
     YELLOW, j->nom, COLOR_RESET, GREEN, j->scoreTotal, COLOR_RESET, RED, j->scoreManche, COLOR_RESET);
+    
     printf("  VOTRE MAIN : \n");
-<<<<<<< HEAD
-    int cartes[CARTES_MAX];
-    int nb=0;
-    for(int i=0; i<=18; i++){  //recovering present cards
-=======
     
     int cartes[50];
     int nb=0;
 
     //recovering present cards
     for(int i = 0; i<= 18; i++){
->>>>>>> 66868323fe23527346b415ff410dd1bfe12b10d9
         if(j->cartesMain[i]>0){
             cartes[nb++]=i;
         }
@@ -91,40 +84,32 @@ void afficher_plateau(Joueur *j, Pioche *p){
         printf("  (vide)\n");
     }
     else{
-<<<<<<< HEAD
-        char lignes[CARTES_MAX][5][20]; // constante de 19 cartes différentes max, 5 lignes, 20 chars
-        // Génération
-        for(int k = 0; k<nb; k++){
-            generer_lignes_carte(cartes[k], lignes[k]); //
-=======
-        char lignes[50][5][20]; // 50 cartes max, 5 lignes, 20 chars
+        //temporary table for one card
+        char lignes[5][20]; // 5 lines, 20 chars
 
-        // Génération
-        for (int k = 0; k < nb; k++) {
-            generer_lignes_carte(cartes[k], lignes[k]);
->>>>>>> 66868323fe23527346b415ff410dd1bfe12b10d9
-        }
-
-        // Affichage ligne par ligne
-<<<<<<< HEAD
-        for(int ligne = 0; ligne<3; ligne++){
-=======
+        // Horizontal display: displaying the card line by line for every card
         for (int ligne = 0; ligne < 3; ligne++) {
->>>>>>> 66868323fe23527346b415ff410dd1bfe12b10d9
-            for (int k = 0; k < nb; k++) {
-                printf("%s   ", lignes[k][ligne]);
+            for(int k=0; k<nb; k++){
+
+                //generate the line for the card k
+                generer_lignes_carte(cartes[k], lignes);
+                
+                //only displaying the asked line
+                print("%s   ", lignes[ligne]);
             }
-            printf("\n");
+            print("\n");
         }
     }
+
     printf("\n");
+
     //progression bar
     printf("  PIOCHE : [");
-<<<<<<< HEAD
-    int progression = (p->prochain_indice * 40)/p->taille; //scale for the stack
-=======
-    int progression = (p->prochain_indice * 40)/TAILLE_PIOCHE; //echelle pour la pioche
->>>>>>> 66868323fe23527346b415ff410dd1bfe12b10d9
+
+    //Conversion of the number of cards drawn into a 40 character bar
+    int progression = (p->prochain_indice * 40)/TAILLE_PIOCHE; //pick's scale
+
+    //displaying the progression
     for(int i=0; i<40; i++){
         if(i<progression){
             printf("X");}
@@ -132,6 +117,8 @@ void afficher_plateau(Joueur *j, Pioche *p){
             printf(".");}
     }
     printf("] (%d/%d cartes tirées)\n", p->prochain_indice, TAILLE_PIOCHE);
+
+    //closing the playing board
     printf("%s╰──────────────────────────────────────────────────────────────────────────╯%s\n", CYAN, COLOR_RESET);
 }
 
